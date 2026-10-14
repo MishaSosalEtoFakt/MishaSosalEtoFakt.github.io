@@ -165,7 +165,7 @@
             line-height: 1.5;
         }
 
-        /* Вайб-бокс */
+        /* Вайб блок */
         .vibe-box {
             display: flex;
             align-items: center;
@@ -233,21 +233,63 @@
             box-shadow: 0 15px 35px rgba(255, 0, 127, 0.6);
         }
 
-        .secret-message {
+        .secret-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .secret-content.show {
+            max-height: 800px;
+            opacity: 1;
             margin-top: 25px;
+        }
+
+        .secret-message {
             font-size: 18px;
             color: var(--accent-gold);
             font-weight: 600;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            opacity: 0;
             line-height: 1.5;
+            margin-bottom: 20px;
         }
 
-        .secret-message.show {
-            max-height: 300px;
-            opacity: 1;
+        /* Контейнер для гифки/картинки с эффектом discipline */
+        .media-container {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .media-container img, .media-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%) contrast(120%); /* Черно-белый стиль под discipline */
+            transition: filter 0.5s ease;
+        }
+
+        .media-container:hover img, .media-container:hover video {
+            filter: grayscale(0%) contrast(100%); /* При наведении оживает в цвете */
+        }
+
+        .discipline-label {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: 900;
+            color: #00f2fe;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
         }
 
         footer {
@@ -294,7 +336,7 @@
         <div class="card vibe-box">
             <div class="vibe-text">
                 <h2>Главное </h2>
-                <p> самый лучший кент бро брат и ПАПА) Самій близкий и самый надежный друг   .</p>
+                <p> самый лучший кент бро брат и ПАПА) Самій близкий и самый надежный друг    .</p>
             </div>
             <div class="equalizer">
                 <div class="bar"></div>
@@ -308,8 +350,16 @@
         <!-- Кнопка разрыва -->
         <div class="card cta-section">
             <button class="btn-magic" onclick="revealSecret()">Забрать главный подгон</button>
-            <div id="secret" class="secret-message">
-                💥 Желаю шоб хуй стоял бабки(лучше в инностранной валюте) рекой текли мотики техника не ломались а всякая хуйня обходила стороной Чтоб всё было охуенно гладко и главное со смазкой С праздником ПА! 🍻 СТЕБЯПИВА
+            <div id="secret" class="secret-content">
+                <div class="secret-message">
+                    💥 Желаю шоб хуй стоял бабки(лучше в инностранной валюте) рекой текли мотики техника не ломались а всякая хуйня обходила стороной Чтоб всё было охуенно гладко и главное со смазкой С праздником ПА! 🍻 СТЕБЯПИВА
+                </div>
+                <!-- Блок с гифкой / картинкой в черно-белом стиле с надписью discipline -->
+                <div class="media-container">
+                    <!-- Сюда вставь ссылку на свою гифку или картинку (вместо src можно указать имя файла, если загрузишь в репозиторий) -->
+                    <img src="https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif"[cite: 1] alt="Discipline">
+                    <div class="discipline-label">discipline</div>
+                </div>
             </div>
         </div>
 
@@ -346,7 +396,7 @@
                 this.y = y;
                 this.color = color;
                 const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random * 7 + 2;
+                const speed = Math.random() * 7 + 2;
                 this.vx = Math.cos(angle) * speed;
                 this.vy = Math.sin(angle) * speed;
                 this.alpha = 1;
