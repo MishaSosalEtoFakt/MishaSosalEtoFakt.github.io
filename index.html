@@ -3,453 +3,734 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>С Днём Рождения Мишаня!</title>
+    <title>С Днём Рождения, Лада! ✨ 18 лет</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roseGold: '#ECC5C0',
+                        softPink: '#FFB6C1',
+                        deepPink: '#FF1493',
+                        berry: '#8B008B',
+                        gold: '#FFD700',
+                        glassBg: 'rgba(255, 240, 245, 0.45)',
+                        glassBorder: 'rgba(255, 182, 193, 0.5)'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        cursive: ['Dancing Script', 'cursive'],
+                        accent: ['Great Vibes', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,900;1,400&display=swap');
-
-        :root {
-            --bg-color: #08090d;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-gold: #ffc107;
-            --accent-cyan: #00f2fe;
-            --accent-pink: #ff007f;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Custom Animations & Styles */
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 35%, #ffd1dc 70%, #ffb6c1 100%);
+            min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* Светящиеся сферы на фоне */
-        .glow-sphere {
-            position: absolute;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            filter: blur(140px);
-            z-index: -1;
-            opacity: 0.2;
-            animation: moveSphere 8s infinite alternate ease-in-out;
-        }
-        .sphere-1 { top: -100px; left: -100px; background: var(--accent-pink); }
-        .sphere-2 { bottom: -100px; right: -100px; background: var(--accent-cyan); animation-delay: -4s; }
-
-        @keyframes moveSphere {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(60px, 60px) scale(1.3); }
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px 0 rgba(236, 112, 153, 0.2);
         }
 
-        canvas#fireworks {
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 15px 35px 0 rgba(236, 112, 153, 0.35);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Glow Text Effect */
+        .text-glow-pink {
+            text-shadow: 0 0 15px rgba(255, 20, 147, 0.5), 0 0 30px rgba(255, 182, 193, 0.8);
+        }
+        .text-glow-gold {
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.6), 0 0 25px rgba(255, 223, 0, 0.8);
+        }
+
+        /* Cake & Candle Styles */
+        .flame {
+            background: radial-gradient(ellipse at bottom, #ffff00 0%, #ff8c00 60%, #ff0000 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #ff8c00, 0 0 25px #ffff00;
+            animation: flicker 0.1s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
+            100% { transform: scale(1.1) rotate(1deg); opacity: 1; }
+        }
+
+        /* Flip Card Effect */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner, .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Ambient Floating Hearts Layer */
+        #heart-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 999;
-        }
-
-        .wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            transform: translateY(30px);
-            opacity: 0;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.25s; }
-        .card:nth-child(3) { animation-delay: 0.4s; }
-        .card:nth-child(4) { animation-delay: 0.55s; }
-
-        @keyframes fadeInUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .hero {
-            text-align: center;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 8px 18px;
-            background: rgba(255, 0, 127, 0.15);
-            color: var(--accent-pink);
-            border: 1px solid rgba(255, 0, 127, 0.3);
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: clamp(32px, 6vw, 60px);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #ffffff 20%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 17px;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-
-        .feature-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            background: rgba(0, 242, 254, 0.03);
-        }
-
-        .feature-item h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--accent-cyan);
-        }
-
-        .feature-item p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* Вайб блок */
-        .vibe-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .vibe-text h2 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        .vibe-text p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .equalizer {
-            display: flex;
-            gap: 5px;
-            align-items: flex-end;
-            height: 35px;
-        }
-
-        .bar {
-            width: 6px;
-            background: var(--accent-pink);
-            border-radius: 3px;
-            animation: bounce 1s infinite ease-in-out alternate;
-        }
-
-        .bar:nth-child(1) { height: 50%; animation-delay: 0.1s; }
-        .bar:nth-child(2) { height: 90%; animation-delay: 0.3s; }
-        .bar:nth-child(3) { height: 100%; animation-delay: 0.2s; }
-        .bar:nth-child(4) { height: 70%; animation-delay: 0.4s; }
-        .bar:nth-child(5) { height: 85%; animation-delay: 0.15s; }
-
-        @keyframes bounce {
-            0% { transform: scaleY(0.3); }
-            100% { transform: scaleY(1); }
-        }
-
-        .cta-section {
-            text-align: center;
-        }
-
-        .btn-magic {
-            background: linear-gradient(135deg, var(--accent-pink) 0%, #ff5e62 100%);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 18px;
-            font-weight: 800;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(255, 0, 127, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-magic:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(255, 0, 127, 0.6);
-        }
-
-        .secret-content {
-            max-height: 0;
+            z-index: 1;
             overflow: hidden;
-            transition: all 0.6s ease;
-            opacity: 0;
         }
-
-        .secret-content.show {
-            max-height: 800px;
-            opacity: 1;
-            margin-top: 25px;
-        }
-
-        .secret-message {
-            font-size: 18px;
-            color: var(--accent-gold);
-            font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        /* Контейнер для гифки/картинки с эффектом discipline */
-        .media-container {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .media-container img, .media-container video {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: grayscale(100%) contrast(120%); /* Черно-белый стиль под discipline */
-            transition: filter 0.5s ease;
-        }
-
-        .media-container:hover img, .media-container:hover video {
-            filter: grayscale(0%) contrast(100%); /* При наведении оживает в цвете */
-        }
-
-        .discipline-label {
+        .floating-heart {
             position: absolute;
-            bottom: 15px;
-            left: 20px;
-            font-size: 24px;
-            font-weight: 900;
-            color: #00f2fe;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+            color: rgba(255, 105, 180, 0.6);
+            animation: rise 8s linear infinite;
+            font-size: 1.2rem;
+        }
+        @keyframes rise {
+            0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.3) rotate(360deg); opacity: 0; }
         }
 
-        footer {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 13px;
-            margin-top: 10px;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe4e1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffb6c1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff69b4;
         }
     </style>
 </head>
-<body>
+<body class="text-gray-800 relative selection:bg-pink-300 selection:text-pink-900">
 
-    <canvas id="fireworks"></canvas>
-    <div class="glow-sphere sphere-1"></div>
-    <div class="glow-sphere sphere-2"></div>
+    <!-- Ambient Floating Hearts Background -->
+    <div id="heart-container"></div>
 
-    <div class="wrapper">
-        <!-- Главный экран -->
-        <div class="card hero">
-            <div class="badge">Сука день рождения леги</div>
-            <h1>С днюхой, Миха!</h1>
-            <p>Этот день настал нахуй Никакой хуйни только заслуженный отдых абсолютный кайф и падарачки.</p>
-        </div>
+    <!-- Music Player Toggle Floating Button -->
+    <div class="fixed top-5 right-5 z-50 flex items-center gap-2">
+        <!-- Language Switcher -->
+        <button id="lang-btn" onclick="toggleLanguage()" class="glass-card px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-pink-700 hover:bg-white transition flex items-center gap-2 shadow-md">
+            <i class="fa-solid font-bold text-pink-500">🌐</i> <span id="lang-label">UA / RU</span>
+        </button>
 
-        <!-- Карточки с жизой -->
-        <div class="card">
-            <div class="features-grid">
-                <div class="feature-item">
-                    <h3>⚡ Бенз по 15</h3>
-                    <p>и не мечтай такого уже не будит(((</p>
-                </div>
-                <div class="feature-item">
-                    <h3>🔥 Железобетон</h3>
-                    <p>меси цемент и смотри шоб волосы под дождем не схватились</p>
-                </div>
-                <div class="feature-item">
-                    <h3>🚀 любов</h3>
-                    <p>Люби будь любим кайфуй но про резину не забівай!</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Вайб блок -->
-        <div class="card vibe-box">
-            <div class="vibe-text">
-                <h2>Главное </h2>
-                <p> самый лучший кент бро брат и ПАПА) Самій близкий и самый надежный друг    .</p>
-            </div>
-            <div class="equalizer">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        </div>
-
-        <!-- Кнопка разрыва -->
-        <div class="card cta-section">
-            <button class="btn-magic" onclick="revealSecret()">Забрать главный подгон</button>
-            <div id="secret" class="secret-content">
-                <div class="secret-message">
-                    💥 Желаю шоб хуй стоял бабки(лучше в инностранной валюте) рекой текли мотики техника не ломались а всякая хуйня обходила стороной Чтоб всё было охуенно гладко и главное со смазкой С праздником ПА! 🍻 СТЕБЯПИВА
-                </div>
-                <!-- Блок с гифкой / картинкой в черно-белом стиле с надписью discipline -->
-              
-                    <!-- Сюда вставь ссылку на свою гифку или картинку (вместо src можно указать имя файла, если загрузишь в репозиторий) -->
-                    
-                   
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            Сделано для ПАПАНИ
-        </footer>
+        <!-- Audio Synthesizer Toggle -->
+        <button id="music-btn" onclick="toggleAudio()" class="glass-card p-3 rounded-full text-pink-600 hover:text-pink-800 transition shadow-lg flex items-center justify-center w-11 h-11">
+            <i id="music-icon" class="fa-solid fa-music text-lg"></i>
+        </button>
     </div>
 
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 relative z-10 flex flex-col items-center gap-16">
+
+        <!-- HERO SECTION -->
+        <section class="w-full text-center mt-6 sm:mt-10 flex flex-col items-center">
+            
+            <!-- Floating Crown / Sparkle Badge -->
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card border border-pink-300 text-pink-600 text-sm font-semibold mb-6 animate-bounce shadow-sm">
+                <i class="fa-solid fa-crown text-yellow-500"></i>
+                <span data-i18n="heroBadge">Королева сегодняшнего дня!</span>
+            </div>
+
+            <!-- Big Main Greeting Header -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-pink-600 tracking-tight font-cursive mb-4 text-glow-pink">
+                <span data-i18n="heroGreeting">С Днём Рождения, Лада!</span> 🌸✨
+            </h1>
+
+            <p class="text-gray-700 max-w-2xl text-base sm:text-xl font-light leading-relaxed mb-8 px-2" data-i18n="heroSubtitle">
+                Тебе исполняется 18 лет! Время сиять, мечтать, покорять вершины и радоваться каждому мгновению этой прекрасной жизни!
+            </p>
+
+            <!-- Glowing 18 Number Badge -->
+            <div class="relative group cursor-pointer my-2" onclick="triggerConfettiBurst()">
+                <div class="absolute -inset-1 bg-gradient-to-r from-pink-500 via-yellow-400 to-pink-500 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                <div class="relative px-8 py-6 glass-card rounded-3xl flex items-center justify-center border-2 border-pink-300">
+                    <span class="text-7xl sm:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-pink-500 font-sans tracking-wider">18</span>
+                    <span class="text-2xl sm:text-3xl text-yellow-500 ml-3 self-start font-cursive animate-spin" style="animation-duration: 8s;">✨</span>
+                </div>
+            </div>
+            <p class="text-xs text-pink-500 mt-2 font-medium" data-i18n="clickForMagic">(Нажми на цифру для салюта! 🎆)</p>
+        </section>
+
+        <!-- INTERACTIVE CAKE & CANDLE BLOWING SECTION -->
+        <section class="w-full glass-card rounded-3xl p-6 sm:p-10 text-center flex flex-col items-center shadow-xl border border-white/60">
+            <h2 class="text-2xl sm:text-3xl font-bold text-pink-700 font-cursive mb-2" data-i18n="cakeTitle">
+                Загадай самое заветное желание! 🎂
+            </h2>
+            <p class="text-gray-600 text-sm sm:text-base mb-8" data-i18n="cakeDesc">
+                Загадай желание и задуй свечу! Нажми на пламя или дуй в микрофон!
+            </p>
+
+            <!-- Interactive Cake Container -->
+            <div class="relative w-64 h-64 flex flex-col items-center justify-end mb-6">
+                
+                <!-- Candles -->
+                <div class="relative z-20 flex gap-4 mb-[-8px]">
+                    <!-- Candle 1 -->
+                    <div class="flex flex-col items-center cursor-pointer group" onclick="blowCandle(1)">
+                        <div id="flame-1" class="flame w-4 h-6 mb-1"></div>
+                        <div class="w-3 h-12 bg-gradient-to-b from-yellow-200 to-pink-300 rounded-sm shadow-inner border border-yellow-300"></div>
+                    </div>
+                    <!-- Candle 2 (Center Special) -->
+                    <div class="flex flex-col items-center cursor-pointer group -translate-y-2" onclick="blowCandle(2)">
+                        <div id="flame-2" class="flame w-5 h-7 mb-1"></div>
+                        <div class="w-4 h-14 bg-gradient-to-b from-pink-300 to-purple-400 rounded-sm shadow-inner border border-pink-200"></div>
+                    </div>
+                    <!-- Candle 3 -->
+                    <div class="flex flex-col items-center cursor-pointer group" onclick="blowCandle(3)">
+                        <div id="flame-3" class="flame w-4 h-6 mb-1"></div>
+                        <div class="w-3 h-12 bg-gradient-to-b from-yellow-200 to-pink-300 rounded-sm shadow-inner border border-yellow-300"></div>
+                    </div>
+                </div>
+
+                <!-- Cake Layers -->
+                <!-- Top Layer -->
+                <div class="w-36 h-14 bg-gradient-to-r from-pink-300 via-rose-200 to-pink-300 rounded-t-2xl shadow-md border-b-4 border-pink-400 relative overflow-hidden flex justify-around pt-1">
+                    <div class="w-4 h-4 bg-white rounded-full opacity-60"></div>
+                    <div class="w-4 h-4 bg-white rounded-full opacity-60"></div>
+                    <div class="w-4 h-4 bg-white rounded-full opacity-60"></div>
+                </div>
+                <!-- Middle Layer -->
+                <div class="w-48 h-16 bg-gradient-to-r from-pink-400 via-rose-300 to-pink-400 rounded-t-lg shadow-md border-b-4 border-pink-500 relative flex justify-around items-center">
+                    <span class="text-white text-xs opacity-75 font-bold">✦ LADA ✦</span>
+                </div>
+                <!-- Bottom Layer -->
+                <div class="w-60 h-20 bg-gradient-to-r from-pink-500 via-rose-400 to-pink-500 rounded-t-xl shadow-lg relative flex items-center justify-center">
+                    <div class="w-full h-3 bg-yellow-200/50 absolute top-4"></div>
+                    <div class="text-white font-cursive text-xl tracking-widest text-glow-gold">18th Birthday</div>
+                </div>
+                <!-- Cake Plate -->
+                <div class="w-72 h-5 bg-gradient-to-r from-gray-200 via-white to-gray-200 rounded-full shadow-xl border border-gray-300"></div>
+            </div>
+
+            <!-- Cake Controls Buttons -->
+            <div class="flex flex-wrap gap-3 justify-center">
+                <button onclick="blowAllCandles()" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium text-sm hover:opacity-90 shadow-lg hover:shadow-pink-300/50 transition transform active:scale-95">
+                    <i class="fa-solid fa-wind mr-1"></i> <span data-i18n="blowBtn">Задуть все свечи!</span>
+                </button>
+                <button onclick="resetCandles()" class="px-5 py-2.5 rounded-full glass-card text-pink-700 font-medium text-sm hover:bg-white transition border border-pink-300">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> <span data-i18n="resetBtn">Зажечь снова</span>
+                </button>
+                <button id="mic-btn" onclick="toggleMic()" class="px-5 py-2.5 rounded-full glass-card text-purple-700 font-medium text-sm hover:bg-white transition border border-purple-300">
+                    <i class="fa-solid fa-microphone mr-1"></i> <span data-i18n="micBtn">Дунуть в микрофон</span>
+                </button>
+            </div>
+            <p id="wish-message" class="text-pink-600 font-cursive text-xl mt-4 opacity-0 transition-opacity duration-500 font-bold" data-i18n="wishGranted">
+                Пусть все твои 18 желаний сбудутся! ✨🎉
+            </p>
+        </section>
+
+        <!-- 18 SWEET REASONS & WISHES GRID -->
+        <section class="w-full">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl sm:text-4xl font-bold text-pink-700 font-cursive text-glow-pink mb-2" data-i18n="wishesGridTitle">
+                    18 Причин, почему ты особенная 💖
+                </h2>
+                <p class="text-gray-600 text-sm sm:text-base" data-i18n="wishesGridSubtitle">
+                    Нажимай на карточки, чтобы открыть каждое пожелание!
+                </p>
+            </div>
+
+            <!-- Cards Grid (18 Cards) -->
+            <div id="wishes-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- Dynamically generated via JS -->
+            </div>
+        </section>
+
+        <!-- PHOTO / POLAROID MEMORY CAROUSEL -->
+        <section class="w-full glass-card rounded-3xl p-6 sm:p-10 shadow-xl border border-white/60">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-pink-700 font-cursive mb-2" data-i18n="galleryTitle">
+                    Галерея Ярких Моментов ✨
+                </h2>
+                <p class="text-gray-600 text-sm" data-i18n="gallerySubtitle">
+                    Прекрасная Лада в объективе лучшего года!
+                </p>
+            </div>
+
+            <!-- Polaroid Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                
+                <!-- Polaroid 1 -->
+                <div class="bg-white p-4 pb-6 rounded-sm shadow-md hover:shadow-xl transition transform hover:-rotate-1 hover:scale-105 border border-gray-100 flex flex-col items-center">
+                    <div class="w-full h-56 bg-pink-100 rounded-sm overflow-hidden mb-3 relative flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Lada 1" class="w-full h-full object-cover">
+                        <div class="absolute bottom-2 right-2 bg-black/40 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">18 🎉</div>
+                    </div>
+                    <p class="font-cursive text-lg text-pink-600 font-bold" data-i18n="photo1">Улыбка, освещающая всё вокруг ✨</p>
+                </div>
+
+                <!-- Polaroid 2 -->
+                <div class="bg-white p-4 pb-6 rounded-sm shadow-md hover:shadow-xl transition transform hover:rotate-2 hover:scale-105 border border-gray-100 flex flex-col items-center">
+                    <div class="w-full h-56 bg-pink-100 rounded-sm overflow-hidden mb-3 relative flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Lada 2" class="w-full h-full object-cover">
+                        <div class="absolute bottom-2 right-2 bg-black/40 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">Sweet 18</div>
+                    </div>
+                    <p class="font-cursive text-lg text-pink-600 font-bold" data-i18n="photo2">Самый невероятный стиль 🌸</p>
+                </div>
+
+                <!-- Polaroid 3 -->
+                <div class="bg-white p-4 pb-6 rounded-sm shadow-md hover:shadow-xl transition transform hover:-rotate-2 hover:scale-105 border border-gray-100 flex flex-col items-center sm:col-span-2 md:col-span-1">
+                    <div class="w-full h-56 bg-pink-100 rounded-sm overflow-hidden mb-3 relative flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" alt="Lada 3" class="w-full h-full object-cover">
+                        <div class="absolute bottom-2 right-2 bg-black/40 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">Dreams 💫</div>
+                    </div>
+                    <p class="font-cursive text-lg text-pink-600 font-bold" data-i18n="photo3">Мечтай и покоряй весь мир! 🚀</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- INTERACTIVE WISHES / BALLOONS BOARD -->
+        <section class="w-full glass-card rounded-3xl p-6 sm:p-10 shadow-xl border border-white/60">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold text-pink-700 font-cursive mb-2" data-i18n="boardTitle">
+                    Оставь Пожелание для Лады 🎈
+                </h2>
+                <p class="text-gray-600 text-sm" data-i18n="boardSubtitle">
+                    Напиши тёплые слова, и они запускaют шарик с пожеланием прямо в небо!
+                </p>
+            </div>
+
+            <!-- Wish Form -->
+            <div class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto mb-8">
+                <input id="guest-name" type="text" placeholder="Твоё имя" class="px-4 py-3 rounded-full glass-card border border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 text-sm sm:w-1/3">
+                <input id="guest-wish" type="text" placeholder="Твоё пожелание..." class="px-4 py-3 rounded-full glass-card border border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 text-sm sm:w-2/3">
+                <button onclick="sendWishBalloon()" class="px-6 py-3 rounded-full bg-pink-600 hover:bg-pink-700 text-white font-medium text-sm shadow-md transition transform active:scale-95 shrink-0">
+                    <i class="fa-solid fa-paper-plane mr-1"></i> <span data-i18n="sendBtn">Запустить</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Wishes Display Area -->
+            <div id="wishes-wall" class="flex flex-wrap justify-center gap-3 min-h-[100px] p-4 bg-pink-50/50 rounded-2xl border border-pink-100">
+                <!-- Preset Wish Cards -->
+                <div class="glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float">
+                    <span class="text-lg">🎈</span> <strong>Анна:</strong> Сияй ярче всех звёзд! ✨
+                </div>
+                <div class="glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float" style="animation-delay: 1s;">
+                    <span class="text-lg">🌸</span> <strong>Макс:</strong> С 18-ти летием! Счастья и успеха! 🚀
+                </div>
+                <div class="glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float" style="animation-delay: 2s;">
+                    <span class="text-lg">💖</span> <strong>София:</strong> Оставайся всегда такой же жизнерадостной!
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center text-pink-600 text-sm pb-8 font-light">
+            <p data-i18n="footerText">Создано с любовью для Лады в день её 18-летия 💖✨</p>
+            <p class="text-xs text-pink-400 mt-1">GitHub Pages Edition • Happy 18th Birthday!</p>
+        </footer>
+
+    </main>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        function revealSecret() {
-            const secret = document.getElementById('secret');
-            secret.classList.toggle('show');
-            launchFireworks();
+        /* Multi-Language Dictionaries */
+        const translations = {
+            ru: {
+                heroBadge: "Королева сегодняшнего дня!",
+                heroGreeting: "С Днём Рождения, Лада!",
+                heroSubtitle: "Тебе исполняется 18 лет! Время сиять, мечтать, покорять вершины и радоваться каждому мгновению этой прекрасной жизни!",
+                clickForMagic: "(Нажми на цифру для салюта! 🎆)",
+                cakeTitle: "Загадай самое заветное желание! 🎂",
+                cakeDesc: "Загадай желание и задуй свечи! Нажми на пламя или дуй в микрофон!",
+                blowBtn: "Задуть все свечи!",
+                resetBtn: "Зажечь снова",
+                micBtn: "Дунуть в микрофон",
+                wishGranted: "Пусть все твои 18 желаний сбудутся! ✨🎉",
+                wishesGridTitle: "18 Причин, почему ты особенная 💖",
+                wishesGridSubtitle: "Нажимай на карточки, чтобы открыть каждое пожелание!",
+                galleryTitle: "Галерея Ярких Моментов ✨",
+                gallerySubtitle: "Прекрасная Лада в объективе лучшего года!",
+                photo1: "Улыбка, освещающая всё вокруг ✨",
+                photo2: "Самый невероятный стиль 🌸",
+                photo3: "Мечтай и покоряй весь мир! 🚀",
+                boardTitle: "Оставь Пожелание для Лады 🎈",
+                boardSubtitle: "Напиши тёплые слова, и они за запустят шарик с пожеланием!",
+                sendBtn: "Запустить",
+                footerText: "Создано с любовью для Лады в день её 18-летия 💖✨",
+                reasons: [
+                    "Невероятная улыбка 😃",
+                    "Доброе и искреннее сердце 💖",
+                    "Утонченный стиль 👗",
+                    "Прекрасное чувство юмора 😂",
+                    "Умение вдохновлять 🌟",
+                    "Верность друзьям 👯‍♀️",
+                    "Изящество и грация 🩰",
+                    "Глубокий ум 🧠",
+                    "Целеустремленность 🎯",
+                    "Яркая индивидуальность 💎",
+                    "Заботливость 🌸",
+                    "Оптимизм и энергия ⚡",
+                    "Душа компании 🎉",
+                    "Нежность и чуткость 🕊️",
+                    "Творческий взгляд 🎨",
+                    "Умение поддерживать 🤝",
+                    "Неповторимый шарм ✨",
+                    "Ты просто супер! 👑"
+                ]
+            },
+            ua: {
+                heroBadge: "Королева сьогоднішнього дня!",
+                heroGreeting: "З Днем Народження, Лада!",
+                heroSubtitle: "Тобі виповнюється 18 років! Час сяяти, мріяти, підкорювати вершини та радіти кожній миті цього прекрасного життя!",
+                clickForMagic: "(Натисни на цифру для салюту! 🎆)",
+                cakeTitle: "Загадай найзаповітніше бажання! 🎂",
+                cakeDesc: "Загадай бажання та задмухай свічки! Натисни на полум'я або дмухай у мікрофон!",
+                blowBtn: "Задмухати всі свічки!",
+                resetBtn: "Запалити знову",
+                micBtn: "Дмухнути в мікрофон",
+                wishGranted: "Нехай усі твої 18 бажань здійснятья! ✨🎉",
+                wishesGridTitle: "18 Причин, чому ти особлива 💖",
+                wishesGridSubtitle: "Натискай на картки, щоб відкрити кожне побажання!",
+                galleryTitle: "Галерея Яскравих Моментів ✨",
+                gallerySubtitle: "Прекрасна Лада в об'єктиві найкращого року!",
+                photo1: "Усмішка, що осяює все навколо ✨",
+                photo2: "Найнеймовірніший стиль 🌸",
+                photo3: "Мрій та підкорюй увесь світ! 🚀",
+                boardTitle: "Залиш Побажання для Лади 🎈",
+                boardSubtitle: "Напиши теплі слова, і вони запустять кульку з побажанням!",
+                sendBtn: "Запустити",
+                footerText: "Створено з любов'ю для Лади в день її 18-річчя 💖✨",
+                reasons: [
+                    "Неймовірна усмішка 😃",
+                    "Добре та щире серце 💖",
+                    "Витончений стиль 👗",
+                    "Чудове почуття гумору 😂",
+                    "Уміння натхненувати 🌟",
+                    "Вірність друзям 👯‍♀️",
+                    "Витонченість та грація 🩰",
+                    "Глибокий розум 🧠",
+                    "Цілеспрямованість 🎯",
+                    "Яскрава індивідуальність 💎",
+                    "Турботливість 🌸",
+                    "Оптимізм та енергія ⚡",
+                    "Душа компанії 🎉",
+                    "Ніжність та чуйність 🕊️",
+                    "Творчий погляд 🎨",
+                    "Уміння підтримати 🤝",
+                    "Неповторний шарм ✨",
+                    "Ти просто супер! 👑"
+                ]
+            }
+        };
+
+        let currentLang = 'ru';
+
+        // Toggle Language
+        function toggleLanguage() {
+            currentLang = currentLang === 'ru' ? 'ua' : 'ru';
+            updateLanguageUI();
         }
 
-        window.addEventListener('load', () => {
-            setTimeout(launchFireworks, 400);
-        });
-
-        const canvas = document.getElementById('fireworks');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 7 + 2;
-                this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed;
-                this.alpha = 1;
-                this.decay = Math.random() * 0.015 + 0.01;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vy += 0.12;
-                this.alpha -= this.decay;
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3.5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        function createFirework(x, y) {
-            const colors = ['#ff007f', '#00f2fe', '#ffc107', '#ffffff', '#7f00ff'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            for (let i = 0; i < 60; i++) {
-                particles.push(new Particle(x, y, color));
-            }
-        }
-
-        function launchFireworks() {
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => {
-                    createFirework(
-                        Math.random() * canvas.width * 0.8 + canvas.width * 0.1,
-                        Math.random() * canvas.height * 0.4 + canvas.height * 0.1
-                    );
-                }, i * 250);
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) {
-                    particles.splice(index, 1);
+        function updateLanguageUI() {
+            const langData = translations[currentLang];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (langData[key]) {
+                    el.textContent = langData[key];
                 }
             });
-            requestAnimationFrame(animate);
+
+            // Re-render wishes grid
+            renderWishesGrid();
         }
-        animate();
+
+        // Render 18 Wish Flip Cards
+        function renderWishesGrid() {
+            const grid = document.getElementById('wishes-grid');
+            grid.innerHTML = '';
+
+            const reasons = translations[currentLang].reasons;
+
+            reasons.forEach((reason, index) => {
+                const card = document.createElement('div');
+                card.className = 'flip-card h-32 cursor-pointer perspective-1000';
+                card.onclick = function() {
+                    this.classList.toggle('flipped');
+                    triggerMiniConfetti(this);
+                };
+
+                card.innerHTML = `
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl shadow-md border border-pink-200">
+                        <!-- Front -->
+                        <div class="flip-card-front absolute inset-0 bg-gradient-to-br from-white to-pink-100 rounded-2xl flex flex-col items-center justify-center p-2 text-pink-600">
+                            <span class="text-xs font-bold text-pink-400 mb-1"># ${index + 1}</span>
+                            <i class="fa-solid fa-heart text-pink-400 text-xl mb-1"></i>
+                            <span class="text-xs text-pink-500 font-medium">Нажми me</span>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-pink-500 to-rose-400 text-white rounded-2xl flex items-center justify-center p-3 text-center text-xs sm:text-sm font-semibold">
+                            ${reason}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* Candle Blowing Logic */
+        let activeCandles = [true, true, true];
+
+        function blowCandle(index) {
+            const flame = document.getElementById(`flame-${index}`);
+            if (flame && flame.style.display !== 'none') {
+                flame.style.display = 'none';
+                activeCandles[index - 1] = false;
+                checkAllCandlesBlown();
+            }
+        }
+
+        function blowAllCandles() {
+            [1, 2, 3].forEach(i => blowCandle(i));
+        }
+
+        function resetCandles() {
+            [1, 2, 3].forEach(i => {
+                const flame = document.getElementById(`flame-${i}`);
+                if (flame) flame.style.display = 'block';
+            });
+            activeCandles = [true, true, true];
+            document.getElementById('wish-message').classList.add('opacity-0');
+        }
+
+        function checkAllCandlesBlown() {
+            if (activeCandles.every(c => c === false)) {
+                document.getElementById('wish-message').classList.remove('opacity-0');
+                triggerConfettiBurst();
+            }
+        }
+
+        /* Microphone blowing detection */
+        let micStream = null;
+        let audioContext = null;
+        let isMicActive = false;
+
+        async function toggleMic() {
+            const micBtn = document.getElementById('mic-btn');
+
+            if (isMicActive) {
+                if (micStream) micStream.getTracks().forEach(track => track.stop());
+                isMicActive = false;
+                micBtn.classList.remove('bg-purple-600', 'text-white');
+                micBtn.classList.add('glass-card', 'text-purple-700');
+                return;
+            }
+
+            try {
+                micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const analyser = audioContext.createAnalyser();
+                const microphone = audioContext.createMediaStreamSource(micStream);
+                microphone.connect(analyser);
+
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                isMicActive = true;
+                micBtn.classList.remove('glass-card', 'text-purple-700');
+                micBtn.classList.add('bg-purple-600', 'text-white');
+
+                function detectBlow() {
+                    if (!isMicActive) return;
+                    analyser.getByteFrequencyData(dataArray);
+                    let sum = 0;
+                    for (let i = 0; i < bufferLength; i++) {
+                        sum += dataArray[i];
+                    }
+                    let average = sum / bufferLength;
+
+                    // Threshold for blowing detection
+                    if (average > 50) {
+                        blowAllCandles();
+                    }
+
+                    requestAnimationFrame(detectBlow);
+                }
+                detectBlow();
+
+            } catch (err) {
+                alert("Микрофон недоступен или отклонен запрос на доступ.");
+            }
+        }
+
+        /* Confetti Fireworks Effect */
+        function triggerConfettiBurst() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#FF1493', '#FFB6C1', '#FFD700', '#FF69B4']
+            });
+        }
+
+        function triggerMiniConfetti(element) {
+            const rect = element.getBoundingClientRect();
+            const x = (rect.left + rect.width / 2) / window.innerWidth;
+            const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+            confetti({
+                particleCount: 20,
+                spread: 40,
+                origin: { x: x, y: y },
+                colors: ['#FF1493', '#FFB6C1', '#FFD700']
+            });
+        }
+
+        /* Interactive Balloon Wishes Board */
+        function sendWishBalloon() {
+            const nameInput = document.getElementById('guest-name');
+            const wishInput = document.getElementById('guest-wish');
+            const wall = document.getElementById('wishes-wall');
+
+            const name = nameInput.value.trim() || 'Гость';
+            const wish = wishInput.value.trim();
+
+            if (!wish) return;
+
+            const card = document.createElement('div');
+            card.className = 'glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float';
+            card.innerHTML = `<span class="text-lg">💖</span> <strong>${name}:</strong> ${wish}`;
+
+            wall.prepend(card);
+
+            nameInput.value = '';
+            wishInput.value = '';
+
+            triggerConfettiBurst();
+        }
+
+        /* Ambient Floating Hearts Creator */
+        function createHearts() {
+            const container = document.getElementById('heart-container');
+            const icons = ['💖', '🌸', '✨', '💕', '🌷'];
+
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                heart.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 10000);
+            }, 800);
+        }
+
+        /* Web Audio API Synthesizer Music Generator (No External MP3 Dependency) */
+        let audioSynthContext = null;
+        let isPlaying = false;
+        let musicInterval = null;
+
+        function toggleAudio() {
+            const musicBtn = document.getElementById('music-icon');
+
+            if (isPlaying) {
+                clearInterval(musicInterval);
+                isPlaying = false;
+                musicBtn.className = "fa-solid fa-music text-lg";
+                return;
+            }
+
+            if (!audioSynthContext) {
+                audioSynthContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            isPlaying = true;
+            musicBtn.className = "fa-solid fa-pause text-lg text-pink-600";
+
+            // Ambient Pleasant Music Loop (Pentatonic major notes)
+            const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25]; // C, D, E, G, A, C
+            let step = 0;
+
+            musicInterval = setInterval(() => {
+                if (!isPlaying) return;
+
+                const osc = audioSynthContext.createOscillator();
+                const gain = audioSynthContext.createGain();
+
+                const freq = notes[Math.floor(Math.random() * notes.length)];
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioSynthContext.currentTime);
+
+                gain.gain.setValueAtTime(0.05, audioSynthContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioSynthContext.currentTime + 1.5);
+
+                osc.connect(gain);
+                gain.connect(audioSynthContext.destination);
+
+                osc.start();
+                osc.stop(audioSynthContext.currentTime + 1.5);
+
+                step++;
+            }, 400);
+        }
+
+        // Initialize On Load
+        window.onload = function() {
+            renderWishesGrid();
+            createHearts();
+        };
     </script>
 </body>
 </html>
