@@ -140,6 +140,19 @@
             100% { transform: translateY(-10vh) scale(1.3) rotate(360deg); opacity: 0; }
         }
 
+        /* Animated Music Note Floating Effect */
+        .music-note {
+            position: absolute;
+            pointer-events: none;
+            color: #ff1493;
+            font-size: 1.2rem;
+            animation: floatNote 2s linear forwards;
+        }
+        @keyframes floatNote {
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-40px) scale(1.4) rotate(20deg); opacity: 0; }
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -163,10 +176,8 @@
 
     <!-- Music Player Toggle Floating Button -->
     <div class="fixed top-5 right-5 z-50 flex items-center gap-2">
-        <!-- Language Switcher -->
-        <button id="lang-btn" onclick="toggleLanguage()" class="glass-card px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-pink-700 hover:bg-white transition flex items-center gap-2 shadow-md">
-            <i class="fa-solid font-bold text-pink-500">🌐</i> <span id="lang-label">UA / RU</span>
-        </button>
+        <!-- Floating Music Note Animation Container -->
+        <div id="note-container" class="relative"></div>
 
         <!-- Audio Synthesizer Toggle -->
         <button id="music-btn" onclick="toggleAudio()" class="glass-card p-3 rounded-full text-pink-600 hover:text-pink-800 transition shadow-lg flex items-center justify-center w-11 h-11">
@@ -183,15 +194,15 @@
             <!-- Floating Crown / Sparkle Badge -->
             <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card border border-pink-300 text-pink-600 text-sm font-semibold mb-6 animate-bounce shadow-sm">
                 <i class="fa-solid fa-crown text-yellow-500"></i>
-                <span data-i18n="heroBadge">Королева сегодняшнего дня!</span>
+                <span>Королева сегодняшнего дня!</span>
             </div>
 
             <!-- Big Main Greeting Header -->
             <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-pink-600 tracking-tight font-cursive mb-4 text-glow-pink">
-                <span data-i18n="heroGreeting">С Днём Рождения, Лада!</span> 🌸✨
+                С Днём Рождения, Лада! 🌸✨
             </h1>
 
-            <p class="text-gray-700 max-w-2xl text-base sm:text-xl font-light leading-relaxed mb-8 px-2" data-i18n="heroSubtitle">
+            <p class="text-gray-700 max-w-2xl text-base sm:text-xl font-light leading-relaxed mb-8 px-2">
                 Тебе исполняется 18 лет! Время сиять, мечтать, покорять вершины и радоваться каждому мгновению этой прекрасной жизни!
             </p>
 
@@ -203,16 +214,16 @@
                     <span class="text-2xl sm:text-3xl text-yellow-500 ml-3 self-start font-cursive animate-spin" style="animation-duration: 8s;">✨</span>
                 </div>
             </div>
-            <p class="text-xs text-pink-500 mt-2 font-medium" data-i18n="clickForMagic">(Нажми на цифру для салюта! 🎆)</p>
+            <p class="text-xs text-pink-500 mt-2 font-medium">(Нажми на цифру для салюта! 🎆)</p>
         </section>
 
         <!-- INTERACTIVE CAKE & CANDLE BLOWING SECTION -->
         <section class="w-full glass-card rounded-3xl p-6 sm:p-10 text-center flex flex-col items-center shadow-xl border border-white/60">
-            <h2 class="text-2xl sm:text-3xl font-bold text-pink-700 font-cursive mb-2" data-i18n="cakeTitle">
+            <h2 class="text-2xl sm:text-3xl font-bold text-pink-700 font-cursive mb-2">
                 Загадай самое заветное желание! 🎂
             </h2>
-            <p class="text-gray-600 text-sm sm:text-base mb-8" data-i18n="cakeDesc">
-                Загадай желание и задуй свечу! Нажми на пламя или дуй в микрофон!
+            <p class="text-gray-600 text-sm sm:text-base mb-8">
+                Загадай желание и задуй свечи! Нажми на пламя или дуй в микрофон!
             </p>
 
             <!-- Interactive Cake Container -->
@@ -260,16 +271,16 @@
             <!-- Cake Controls Buttons -->
             <div class="flex flex-wrap gap-3 justify-center">
                 <button onclick="blowAllCandles()" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium text-sm hover:opacity-90 shadow-lg hover:shadow-pink-300/50 transition transform active:scale-95">
-                    <i class="fa-solid fa-wind mr-1"></i> <span data-i18n="blowBtn">Задуть все свечи!</span>
+                    <i class="fa-solid fa-wind mr-1"></i> <span>Задуть все свечи!</span>
                 </button>
                 <button onclick="resetCandles()" class="px-5 py-2.5 rounded-full glass-card text-pink-700 font-medium text-sm hover:bg-white transition border border-pink-300">
-                    <i class="fa-solid fa-rotate-left mr-1"></i> <span data-i18n="resetBtn">Зажечь снова</span>
+                    <i class="fa-solid fa-rotate-left mr-1"></i> <span>Зажечь снова</span>
                 </button>
                 <button id="mic-btn" onclick="toggleMic()" class="px-5 py-2.5 rounded-full glass-card text-purple-700 font-medium text-sm hover:bg-white transition border border-purple-300">
-                    <i class="fa-solid fa-microphone mr-1"></i> <span data-i18n="micBtn">Дунуть в микрофон</span>
+                    <i class="fa-solid fa-microphone mr-1"></i> <span>Дунуть в микрофон</span>
                 </button>
             </div>
-            <p id="wish-message" class="text-pink-600 font-cursive text-xl mt-4 opacity-0 transition-opacity duration-500 font-bold" data-i18n="wishGranted">
+            <p id="wish-message" class="text-pink-600 font-cursive text-xl mt-4 opacity-0 transition-opacity duration-500 font-bold">
                 Пусть все твои 18 желаний сбудутся! ✨🎉
             </p>
         </section>
@@ -277,10 +288,10 @@
         <!-- 18 SWEET REASONS & WISHES GRID -->
         <section class="w-full">
             <div class="text-center mb-10">
-                <h2 class="text-3xl sm:text-4xl font-bold text-pink-700 font-cursive text-glow-pink mb-2" data-i18n="wishesGridTitle">
+                <h2 class="text-3xl sm:text-4xl font-bold text-pink-700 font-cursive text-glow-pink mb-2">
                     18 Причин, почему ты особенная 💖
                 </h2>
-                <p class="text-gray-600 text-sm sm:text-base" data-i18n="wishesGridSubtitle">
+                <p class="text-gray-600 text-sm sm:text-base">
                     Нажимай на карточки, чтобы открыть каждое пожелание!
                 </p>
             </div>
@@ -294,10 +305,10 @@
         <!-- PHOTO / POLAROID MEMORY CAROUSEL -->
         <section class="w-full glass-card rounded-3xl p-6 sm:p-10 shadow-xl border border-white/60">
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-pink-700 font-cursive mb-2" data-i18n="galleryTitle">
+                <h2 class="text-3xl font-bold text-pink-700 font-cursive mb-2">
                     Галерея Ярких Моментов ✨
                 </h2>
-                <p class="text-gray-600 text-sm" data-i18n="gallerySubtitle">
+                <p class="text-gray-600 text-sm">
                     Прекрасная Лада в объективе лучшего года!
                 </p>
             </div>
@@ -311,7 +322,7 @@
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Lada 1" class="w-full h-full object-cover">
                         <div class="absolute bottom-2 right-2 bg-black/40 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">18 🎉</div>
                     </div>
-                    <p class="font-cursive text-lg text-pink-600 font-bold" data-i18n="photo1">Улыбка, освещающая всё вокруг ✨</p>
+                    <p class="font-cursive text-lg text-pink-600 font-bold">Улыбка, освещающая всё вокруг ✨</p>
                 </div>
 
                 <!-- Polaroid 2 -->
@@ -320,7 +331,7 @@
                         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Lada 2" class="w-full h-full object-cover">
                         <div class="absolute bottom-2 right-2 bg-black/40 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">Sweet 18</div>
                     </div>
-                    <p class="font-cursive text-lg text-pink-600 font-bold" data-i18n="photo2">Самый невероятный стиль 🌸</p>
+                    <p class="font-cursive text-lg text-pink-600 font-bold">Самый невероятный стиль 🌸</p>
                 </div>
 
                 <!-- Polaroid 3 -->
@@ -329,50 +340,15 @@
                         <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" alt="Lada 3" class="w-full h-full object-cover">
                         <div class="absolute bottom-2 right-2 bg-black/40 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">Dreams 💫</div>
                     </div>
-                    <p class="font-cursive text-lg text-pink-600 font-bold" data-i18n="photo3">Мечтай и покоряй весь мир! 🚀</p>
+                    <p class="font-cursive text-lg text-pink-600 font-bold">Мечтай и покоряй весь мир! 🚀</p>
                 </div>
 
-            </div>
-        </section>
-
-        <!-- INTERACTIVE WISHES / BALLOONS BOARD -->
-        <section class="w-full glass-card rounded-3xl p-6 sm:p-10 shadow-xl border border-white/60">
-            <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold text-pink-700 font-cursive mb-2" data-i18n="boardTitle">
-                    Оставь Пожелание для Лады 🎈
-                </h2>
-                <p class="text-gray-600 text-sm" data-i18n="boardSubtitle">
-                    Напиши тёплые слова, и они запускaют шарик с пожеланием прямо в небо!
-                </p>
-            </div>
-
-            <!-- Wish Form -->
-            <div class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto mb-8">
-                <input id="guest-name" type="text" placeholder="Твоё имя" class="px-4 py-3 rounded-full glass-card border border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 text-sm sm:w-1/3">
-                <input id="guest-wish" type="text" placeholder="Твоё пожелание..." class="px-4 py-3 rounded-full glass-card border border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 text-sm sm:w-2/3">
-                <button onclick="sendWishBalloon()" class="px-6 py-3 rounded-full bg-pink-600 hover:bg-pink-700 text-white font-medium text-sm shadow-md transition transform active:scale-95 shrink-0">
-                    <i class="fa-solid fa-paper-plane mr-1"></i> <span data-i18n="sendBtn">Запустить</span>
-                </button>
-            </div>
-
-            <!-- Dynamic Wishes Display Area -->
-            <div id="wishes-wall" class="flex flex-wrap justify-center gap-3 min-h-[100px] p-4 bg-pink-50/50 rounded-2xl border border-pink-100">
-                <!-- Preset Wish Cards -->
-                <div class="glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float">
-                    <span class="text-lg">🎈</span> <strong>Анна:</strong> Сияй ярче всех звёзд! ✨
-                </div>
-                <div class="glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float" style="animation-delay: 1s;">
-                    <span class="text-lg">🌸</span> <strong>Макс:</strong> С 18-ти летием! Счастья и успеха! 🚀
-                </div>
-                <div class="glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float" style="animation-delay: 2s;">
-                    <span class="text-lg">💖</span> <strong>София:</strong> Оставайся всегда такой же жизнерадостной!
-                </div>
             </div>
         </section>
 
         <!-- FOOTER -->
         <footer class="text-center text-pink-600 text-sm pb-8 font-light">
-            <p data-i18n="footerText">Создано с любовью для Лады в день её 18-летия 💖✨</p>
+            <p>Создано с любовью для Лады в день её 18-летия 💖✨</p>
             <p class="text-xs text-pink-400 mt-1">GitHub Pages Edition • Happy 18th Birthday!</p>
         </footer>
 
@@ -380,124 +356,31 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        /* Multi-Language Dictionaries */
-        const translations = {
-            ru: {
-                heroBadge: "Королева сегодняшнего дня!",
-                heroGreeting: "С Днём Рождения, Лада!",
-                heroSubtitle: "Тебе исполняется 18 лет! Время сиять, мечтать, покорять вершины и радоваться каждому мгновению этой прекрасной жизни!",
-                clickForMagic: "(Нажми на цифру для салюта! 🎆)",
-                cakeTitle: "Загадай самое заветное желание! 🎂",
-                cakeDesc: "Загадай желание и задуй свечи! Нажми на пламя или дуй в микрофон!",
-                blowBtn: "Задуть все свечи!",
-                resetBtn: "Зажечь снова",
-                micBtn: "Дунуть в микрофон",
-                wishGranted: "Пусть все твои 18 желаний сбудутся! ✨🎉",
-                wishesGridTitle: "18 Причин, почему ты особенная 💖",
-                wishesGridSubtitle: "Нажимай на карточки, чтобы открыть каждое пожелание!",
-                galleryTitle: "Галерея Ярких Моментов ✨",
-                gallerySubtitle: "Прекрасная Лада в объективе лучшего года!",
-                photo1: "Улыбка, освещающая всё вокруг ✨",
-                photo2: "Самый невероятный стиль 🌸",
-                photo3: "Мечтай и покоряй весь мир! 🚀",
-                boardTitle: "Оставь Пожелание для Лады 🎈",
-                boardSubtitle: "Напиши тёплые слова, и они за запустят шарик с пожеланием!",
-                sendBtn: "Запустить",
-                footerText: "Создано с любовью для Лады в день её 18-летия 💖✨",
-                reasons: [
-                    "Невероятная улыбка 😃",
-                    "Доброе и искреннее сердце 💖",
-                    "Утонченный стиль 👗",
-                    "Прекрасное чувство юмора 😂",
-                    "Умение вдохновлять 🌟",
-                    "Верность друзьям 👯‍♀️",
-                    "Изящество и грация 🩰",
-                    "Глубокий ум 🧠",
-                    "Целеустремленность 🎯",
-                    "Яркая индивидуальность 💎",
-                    "Заботливость 🌸",
-                    "Оптимизм и энергия ⚡",
-                    "Душа компании 🎉",
-                    "Нежность и чуткость 🕊️",
-                    "Творческий взгляд 🎨",
-                    "Умение поддерживать 🤝",
-                    "Неповторимый шарм ✨",
-                    "Ты просто супер! 👑"
-                ]
-            },
-            ua: {
-                heroBadge: "Королева сьогоднішнього дня!",
-                heroGreeting: "З Днем Народження, Лада!",
-                heroSubtitle: "Тобі виповнюється 18 років! Час сяяти, мріяти, підкорювати вершини та радіти кожній миті цього прекрасного життя!",
-                clickForMagic: "(Натисни на цифру для салюту! 🎆)",
-                cakeTitle: "Загадай найзаповітніше бажання! 🎂",
-                cakeDesc: "Загадай бажання та задмухай свічки! Натисни на полум'я або дмухай у мікрофон!",
-                blowBtn: "Задмухати всі свічки!",
-                resetBtn: "Запалити знову",
-                micBtn: "Дмухнути в мікрофон",
-                wishGranted: "Нехай усі твої 18 бажань здійснятья! ✨🎉",
-                wishesGridTitle: "18 Причин, чому ти особлива 💖",
-                wishesGridSubtitle: "Натискай на картки, щоб відкрити кожне побажання!",
-                galleryTitle: "Галерея Яскравих Моментів ✨",
-                gallerySubtitle: "Прекрасна Лада в об'єктиві найкращого року!",
-                photo1: "Усмішка, що осяює все навколо ✨",
-                photo2: "Найнеймовірніший стиль 🌸",
-                photo3: "Мрій та підкорюй увесь світ! 🚀",
-                boardTitle: "Залиш Побажання для Лади 🎈",
-                boardSubtitle: "Напиши теплі слова, і вони запустять кульку з побажанням!",
-                sendBtn: "Запустити",
-                footerText: "Створено з любов'ю для Лади в день її 18-річчя 💖✨",
-                reasons: [
-                    "Неймовірна усмішка 😃",
-                    "Добре та щире серце 💖",
-                    "Витончений стиль 👗",
-                    "Чудове почуття гумору 😂",
-                    "Уміння натхненувати 🌟",
-                    "Вірність друзям 👯‍♀️",
-                    "Витонченість та грація 🩰",
-                    "Глибокий розум 🧠",
-                    "Цілеспрямованість 🎯",
-                    "Яскрава індивідуальність 💎",
-                    "Турботливість 🌸",
-                    "Оптимізм та енергія ⚡",
-                    "Душа компанії 🎉",
-                    "Ніжність та чуйність 🕊️",
-                    "Творчий погляд 🎨",
-                    "Уміння підтримати 🤝",
-                    "Неповторний шарм ✨",
-                    "Ти просто супер! 👑"
-                ]
-            }
-        };
-
-        let currentLang = 'ru';
-
-        // Toggle Language
-        function toggleLanguage() {
-            currentLang = currentLang === 'ru' ? 'ua' : 'ru';
-            updateLanguageUI();
-        }
-
-        function updateLanguageUI() {
-            const langData = translations[currentLang];
-            
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (langData[key]) {
-                    el.textContent = langData[key];
-                }
-            });
-
-            // Re-render wishes grid
-            renderWishesGrid();
-        }
+        const reasons = [
+            "Невероятная улыбка 😃",
+            "Доброе и искреннее сердце 💖",
+            "Утонченный стиль 👗",
+            "Прекрасное чувство юмора 😂",
+            "Умение вдохновлять 🌟",
+            "Верность друзьям 👯‍♀️",
+            "Изящество и грация 🩰",
+            "Глубокий ум 🧠",
+            "Целеустремленность 🎯",
+            "Яркая индивидуальность 💎",
+            "Заботливость 🌸",
+            "Оптимизм и энергия ⚡",
+            "Душа компании 🎉",
+            "Нежность и чуткость 🕊️",
+            "Творческий взгляд 🎨",
+            "Умение поддерживать 🤝",
+            "Неповторимый шарм ✨",
+            "Ты просто супер! 👑"
+        ];
 
         // Render 18 Wish Flip Cards
         function renderWishesGrid() {
             const grid = document.getElementById('wishes-grid');
             grid.innerHTML = '';
-
-            const reasons = translations[currentLang].reasons;
 
             reasons.forEach((reason, index) => {
                 const card = document.createElement('div');
@@ -634,29 +517,6 @@
             });
         }
 
-        /* Interactive Balloon Wishes Board */
-        function sendWishBalloon() {
-            const nameInput = document.getElementById('guest-name');
-            const wishInput = document.getElementById('guest-wish');
-            const wall = document.getElementById('wishes-wall');
-
-            const name = nameInput.value.trim() || 'Гость';
-            const wish = wishInput.value.trim();
-
-            if (!wish) return;
-
-            const card = document.createElement('div');
-            card.className = 'glass-card px-4 py-2 rounded-2xl text-xs sm:text-sm text-pink-800 shadow-sm flex items-center gap-2 animate-float';
-            card.innerHTML = `<span class="text-lg">💖</span> <strong>${name}:</strong> ${wish}`;
-
-            wall.prepend(card);
-
-            nameInput.value = '';
-            wishInput.value = '';
-
-            triggerConfettiBurst();
-        }
-
         /* Ambient Floating Hearts Creator */
         function createHearts() {
             const container = document.getElementById('heart-container');
@@ -677,17 +537,93 @@
             }, 800);
         }
 
-        /* Web Audio API Synthesizer Music Generator (No External MP3 Dependency) */
+        /* Web Audio API Happy Birthday Synthesizer Music */
         let audioSynthContext = null;
         let isPlaying = false;
-        let musicInterval = null;
+        let musicTimeout = null;
+
+        // Frequencies for Happy Birthday notes (Hz)
+        const NOTES = {
+            'G4': 392.00,
+            'A4': 440.00,
+            'B4': 493.88,
+            'C5': 523.25,
+            'D5': 587.33,
+            'E5': 659.25,
+            'F5': 698.46,
+            'G5': 783.99
+        };
+
+        // Melody sequence: [Note, Duration in quarter-beats]
+        const HAPPY_BIRTHDAY_MELODY = [
+            ['G4', 0.75], ['G4', 0.25], ['A4', 1], ['G4', 1], ['C5', 1], ['B4', 2],
+            ['G4', 0.75], ['G4', 0.25], ['A4', 1], ['G4', 1], ['D5', 1], ['C5', 2],
+            ['G4', 0.75], ['G4', 0.25], ['G5', 1], ['E5', 1], ['C5', 1], ['B4', 1], ['A4', 2],
+            ['F5', 0.75], ['F5', 0.25], ['E5', 1], ['C5', 1], ['D5', 1], ['C5', 2]
+        ];
+
+        function playNote(freq, durationMs) {
+            if (!isPlaying || !audioSynthContext) return;
+
+            const osc = audioSynthContext.createOscillator();
+            const gain = audioSynthContext.createGain();
+
+            osc.type = 'triangle'; // Soft acoustic tone
+            osc.frequency.setValueAtTime(freq, audioSynthContext.currentTime);
+
+            gain.gain.setValueAtTime(0.15, audioSynthContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioSynthContext.currentTime + (durationMs / 1000));
+
+            osc.connect(gain);
+            gain.connect(audioSynthContext.destination);
+
+            osc.start();
+            osc.stop(audioSynthContext.currentTime + (durationMs / 1000));
+
+            spawnMusicNoteVisual();
+        }
+
+        function spawnMusicNoteVisual() {
+            const container = document.getElementById('note-container');
+            if (!container) return;
+            const note = document.createElement('div');
+            note.innerHTML = ['🎵', '🎶', '✨', '💖'][Math.floor(Math.random() * 4)];
+            note.className = 'absolute text-lg pointer-events-none text-pink-500 font-bold';
+            note.style.left = (Math.random() * 20 - 10) + 'px';
+            note.style.top = '-10px';
+            note.style.transition = 'all 1.5s ease-out';
+            container.appendChild(note);
+
+            requestAnimationFrame(() => {
+                note.style.transform = `translateY(-40px) scale(1.2)`;
+                note.style.opacity = '0';
+            });
+
+            setTimeout(() => note.remove(), 1500);
+        }
+
+        function playMelodyLoop(index = 0) {
+            if (!isPlaying) return;
+
+            const current = HAPPY_BIRTHDAY_MELODY[index];
+            const noteFreq = NOTES[current[0]];
+            const tempo = 380; // Speed of beats
+            const durationMs = current[1] * tempo;
+
+            playNote(noteFreq, durationMs);
+
+            const nextIndex = (index + 1) % HAPPY_BIRTHDAY_MELODY.length;
+            musicTimeout = setTimeout(() => {
+                playMelodyLoop(nextIndex);
+            }, durationMs + 40);
+        }
 
         function toggleAudio() {
             const musicBtn = document.getElementById('music-icon');
 
             if (isPlaying) {
-                clearInterval(musicInterval);
                 isPlaying = false;
+                if (musicTimeout) clearTimeout(musicTimeout);
                 musicBtn.className = "fa-solid fa-music text-lg";
                 return;
             }
@@ -698,32 +634,7 @@
 
             isPlaying = true;
             musicBtn.className = "fa-solid fa-pause text-lg text-pink-600";
-
-            // Ambient Pleasant Music Loop (Pentatonic major notes)
-            const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25]; // C, D, E, G, A, C
-            let step = 0;
-
-            musicInterval = setInterval(() => {
-                if (!isPlaying) return;
-
-                const osc = audioSynthContext.createOscillator();
-                const gain = audioSynthContext.createGain();
-
-                const freq = notes[Math.floor(Math.random() * notes.length)];
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, audioSynthContext.currentTime);
-
-                gain.gain.setValueAtTime(0.05, audioSynthContext.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioSynthContext.currentTime + 1.5);
-
-                osc.connect(gain);
-                gain.connect(audioSynthContext.destination);
-
-                osc.start();
-                osc.stop(audioSynthContext.currentTime + 1.5);
-
-                step++;
-            }, 400);
+            playMelodyLoop(0);
         }
 
         // Initialize On Load
